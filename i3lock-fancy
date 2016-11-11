@@ -1,0 +1,11 @@
+#!/bin/bash
+# Description: Fancy extension for i3lock - Bloodbath powa!
+# Author: fkolacek@redhat.com
+# Version: 0.1a
+
+IMAGE=$(mktemp).png
+scrot $IMAGE
+convert $IMAGE -level 0%,100%,0.6 -filter Gaussian -resize 20% -define filter:sigma=1.5 -resize 500.5% $IMAGE
+
+i3lock -i $IMAGE
+rm $IMAGE
