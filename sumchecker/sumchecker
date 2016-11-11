@@ -1,0 +1,30 @@
+#!/bin/bash
+# Author: fkolacek@redhat.com
+# Description:
+# Version: 1.0
+
+DIRECTORIES=("/bin" "/sbin" "/usr/bin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/etc")
+
+LOGDIR="/var/log/sumchecker"
+LOGNAME="scan-"$(date "+%Y%m%d-%H%M%S")
+
+MD5=$(which md5sum)
+
+if [ -z "${MD5}" ]; then
+  echo "[*] Cannot find md5sum in PATH!" >&2
+  exit 1
+fi
+
+if [ ! -d "${LOGDIR}" ]; then
+  echo "[*] Log directory does not exist, creating one" >&2
+  mkdir -p "${LOGDIR}"
+fi
+
+for DIR in "${DIRECTORIES[@]}"; do
+  echo "[*] Processing ${DIR}" >&2
+  find "${DIR}" -type f -exec ${MD5} {} \; > "${LOGDIR}/${LOGNAME}"
+done
+
+echo "[*] Checksums written to ${LOGDIR}/${LOGNAME}" >&2
+
+exit 0

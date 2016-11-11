@@ -1,0 +1,7 @@
+# Author: fkolacek@redhat.com
+# Description: Cron job for sumchecker
+# Version: 1.0
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+MAILTO=root
+0 1 * * * root /usr/local/sbin/sumchecker >/var/log/sumchecker/scan-out 2>&1
