@@ -6,6 +6,10 @@
 
 ## sc
 
+## ssl-check.sh
+
+## ssl-info.sh
+
 ## sumchecker
 
 ## sumchecker-compare
