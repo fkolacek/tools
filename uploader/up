@@ -1,0 +1,44 @@
+#!/bin/bash
+
+CURL=$(which curl)
+XCLIP=$(which xclip)
+DEST="http://example.com/"
+TOKEN="000000000000000000000000000000000"
+
+if [ -z "${CURL}" ]; then
+  echo "Cannot find curl in PATH"
+  exit 1
+fi
+
+if [ -z "${XCLIP}" ]; then
+  echo "Cannot find xclip in PATH"
+  exit 1
+fi
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 [filename]"
+  exit 1
+fi
+
+if [ ! -f "$1" ]; then
+  echo "File $1 does not exist"
+  exit 2
+fi
+
+if [ -f /etc/uprc ]; then
+  source /etc/uprc
+fi
+
+if [ -f ~/.uprc ]; then
+  source ~/.uprc
+fi
+
+FILE="$1"
+
+OUT=$(${CURL} -s -F file=@"${FILE}" -F token="${TOKEN}" "${DEST}")
+
+echo "${OUT}" | ${XCLIP} -selection clipboard
+
+echo "${OUT}"
+
+exit 0
