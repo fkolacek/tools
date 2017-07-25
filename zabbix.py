@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# pip install py-zabbix
 
-from zabbix.api import ZabbixAPI
+from pyzabbix import ZabbixAPI
 from prettytable import PrettyTable
 from prettytable import ALL as ALL
 from datetime import datetime
